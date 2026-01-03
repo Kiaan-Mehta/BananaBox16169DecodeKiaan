@@ -173,7 +173,7 @@ public class AutoBottomBlue {
 
             case 8:
                 if (!follower.isBusy()) {  // when it is finished with its path the robot will intake the balls then power up the motors and turn off the intake
-                    follower.followPath(paths.Pickupballpile3, true);
+                    follower.followPath(paths.Pickupballpile3, 0.5, true);
                     setPathState(9);
                 }
                 break;

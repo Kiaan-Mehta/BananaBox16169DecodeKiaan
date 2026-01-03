@@ -98,27 +98,32 @@ public class AutoBottomRed {
 
             case 1:
 
-                if (!follower.isBusy())
-
-                if (pathTimer.getElapsedTimeSeconds() > 4) {   // after 4 seconds it will move to next path and turn on the intake
-                   // intake.setPower(intakeOn);
+                if (!follower.isBusy()) {
+                    flip1.setPosition(flickUp);
+                    sleep(200);
+                    flip1.setPosition(flickDown);
+                    launch3balls();// when the robot finishes the path it will launch 3 balls
+                }
+                if (pathTimer.getElapsedTimeSeconds() > 4) {  // after 4 seconds it will move to next path and turn on the intake
+                    intake.setPower(intakeOn);
                     follower.followPath(paths.GotoBallPile1, true);
                     setPathState(2);
                 }
+
                 break;
             case 2:
                 if (!follower.isBusy()) {  // when it is finished with its path the robot will intake the balls then power up the motors and turn off the intake
-                    intake.setPower(intakeOn);
-                    follower.followPath(paths.IntakeBallPile1, true);
-                    sleep(300);
-                    intake.setPower(intakeOff);
-                    launcher1.setPower(launcherPowerFar1);
-                    launcher2.setPower(launcherPowerFar2);
+                    follower.followPath(paths.IntakeBallPile1, 0.5, true);
                     setPathState(3);
                 }
                 break;
+
             case 3:
-                if (!follower.isBusy()) {  // moves to shoot position
+                if (!follower.isBusy()) {// moves to shoot position
+
+                    intake.setPower(intakeOff);
+                    launcher1.setPower(launcherPowerFar1);
+                    launcher2.setPower(launcherPowerFar2);
                     follower.followPath(paths.Shoot2, true);
                     setPathState(4);
                 }
@@ -126,66 +131,71 @@ public class AutoBottomRed {
 
             case 4:
 
-                if (!follower.isBusy()) launch3balls(); // when the robot finishes the path it will launch 3 balls
+                if (!follower.isBusy()) launch3balls();  // when the robot finishes the path it will launch 3 balls
 
                 if (pathTimer.getElapsedTimeSeconds() > 4) {  // after 4 seconds it will move to next path and turn on the intake
                     intake.setPower(intakeOn);
                     follower.followPath(paths.GotoBallPile2, true);
+                    setPathState(5);
+                }
+
+                break;
+
+            case 5:
+                if (!follower.isBusy()) {  // when it is finished with its path the robot will intake the balls then power up the motors and turn off the intake
+                    follower.followPath(paths.IntakeBallPile2, 0.5,true);
                     setPathState(6);
                 }
                 break;
+
             case 6:
-                if (!follower.isBusy()) { // when it is finished with its path the robot will intake the balls then power up the motors and turn off the intake
-                    follower.followPath(paths.IntakeBallPile2, true);
-                    sleep(300);
+                if (!follower.isBusy()) {  // moves to shoot position
                     intake.setPower(intakeOff);
                     launcher1.setPower(launcherPowerClose1);
                     launcher2.setPower(launcherPowerClose2);
+                    follower.followPath(paths.Shoot3, true);
                     setPathState(7);
                 }
                 break;
+
             case 7:
-                if (!follower.isBusy()) {  // moves to shoot position
-                    follower.followPath(paths.Shoot2, true);
-                    setPathState(8);
-                }
-                break;
-            case 8:
 
                 if (!follower.isBusy()) launch3balls();  // when the robot finishes the path it will launch 3 balls
 
                 if (pathTimer.getElapsedTimeSeconds() > 4) {  // after 4 seconds it will move to next path and turn on the intake
                     intake.setPower(intakeOn);
                     follower.followPath(paths.GotoBallPile3, true);
+                    setPathState(8);
+                }
+
+                break;
+
+            case 8:
+                if (!follower.isBusy()) {  // when it is finished with its path the robot will intake the balls then power up the motors and turn off the intake
+                    follower.followPath(paths.IntakeBallPile3, 0.5, true);
                     setPathState(9);
                 }
                 break;
+
             case 9:
-                if (!follower.isBusy()) {  // when it is finished with its path the robot will intake the balls then power up the motors and turn off the intake
-                    follower.followPath(paths.IntakeBallPile3, true);
-                    sleep(300);
+                if (!follower.isBusy()) {  // moves to shoot position
                     intake.setPower(intakeOff);
                     launcher1.setPower(launcherPowerClose1);
                     launcher2.setPower(launcherPowerClose2);
+                    follower.followPath(paths.Shoot4, true);
                     setPathState(10);
                 }
                 break;
 
             case 10:
-                if (!follower.isBusy()) { // moves to shoot position
-                    follower.followPath(paths.Shoot4, true);
-                    setPathState(11);
-                }
-                break;
 
-            case 11:
-
-                if (!follower.isBusy()) launch3balls(); // when the robot finishes the path it will launch 3 balls
+                if (!follower.isBusy()) launch3balls();  // when the robot finishes the path it will launch 3 balls
 
                 if (pathTimer.getElapsedTimeSeconds() > 4) {  // after 4 seconds it will move to next path and turn on the intake
                     follower.followPath(paths.GoPark, true);
                     setPathState(-1);
                 }
+
                 break;
         }
     }
