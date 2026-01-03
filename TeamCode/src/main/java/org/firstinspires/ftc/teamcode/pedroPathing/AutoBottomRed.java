@@ -22,7 +22,7 @@ public class AutoBottomRed {
 
     private Paths paths;
     private int pathState;
-    private final Timer pathTimer;
+    private final Timer pathTimer, shootTimer, intakeTimer;
 
 
     private final double launcherPowerFar1 = 0.85;  // Variables for tuning
@@ -44,6 +44,8 @@ public class AutoBottomRed {
         this.launcher2 = launcher2;
 
         pathTimer = new Timer();
+        shootTimer = new Timer();
+        intakeTimer = new Timer();
     }
 
     public void start() {
@@ -58,9 +60,9 @@ public class AutoBottomRed {
     }
 
     private void launch3balls() {  // we call this function every time you want to launch 3 balls
-        sleep(200);
+
+        sleep(300);
         flip1.setPosition(flickUp);
-        sleep(200);
         flip1.setPosition(flickDown);
         sleep(700);
         intake.setPower(intakeOn);
@@ -96,7 +98,7 @@ public class AutoBottomRed {
 
             case 1:
 
-                if (!follower.isBusy()) launch3balls();   // when the robot finishes the path it will launch 3 balls
+                if (!follower.isBusy())
 
                 if (pathTimer.getElapsedTimeSeconds() > 4) {   // after 4 seconds it will move to next path and turn on the intake
                    // intake.setPower(intakeOn);
